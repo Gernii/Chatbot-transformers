@@ -19,6 +19,54 @@
 * A: optimizer: adam; learning rate costum, metrics : accuracy
 
 
+## Cài đặt
+- Tải dữ liệu về:
+```
+!git clone https://github.com/litahung/Chatbot-transformers.git
+```
+- Di chuyển đến vị trí chứa dữ liệu:
+```
+cd `đường dẫn`
+```
+- cài đặt các thư viện cần thiết:
+```
+!pip install requirements.txt
+```
+```
+import gradio as gr
+import main
+```
+- Hyperparameter:
+
+```
+main.Get_Hyper()
+```
+```
+Kích thước 1 câu - max_length: 20
+Batch size - batch_size: 256
+Số lớp "encoder layer" và "decoder layer" - num_layers: 2
+số lượng Units - num_units: 512
+Số chiều Model - d_model: 256
+Số lượng head trong Multi-head attention - num_heads: 8
+Dropout - dropout: 0.1
+Activation - activation: relu
+Epochs - epochs: 20
+Nếu muốn đổi thông tin Hyperparameter, vui lòng mở file main.py và đổi thông tin trong class Args rồi restart runtime
+```
+- Sử dụng:
+
+```
+iface = gr.Interface(fn=main.predict, inputs='text' , outputs="text")
+iface.launch()
+```
+
+- Train mô hình:
+
+```
+main.train_model()
+```
+
+
 ## Ưu điểm:
 ### xử lý đồng thời các từ thay vì xử lý tuần tự từng từ như mô hình Seq2Seq
 
@@ -97,3 +145,6 @@ decoder  dự đoán từ tiếp theo bằng cách tập trung vào output của
 
 # Nguồn tài liệu:
 > [Quoc Pham](https://pbcquoc.github.io/transformer/)
+
+
+
