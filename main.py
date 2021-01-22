@@ -86,14 +86,32 @@ def main():
   model.compile(optimizer, loss=loss_function, metrics=['accuracy', lr_metric])
   print('Hoàn tất chuẩn bị mô hình.')
   filename = 'weights.h5'
-  if str(path.exists('./weights.h5')) == 'True' and hparams.evaluate == 'yes' :
+  if str(path.exists('./weights.h5')) == 'True' :
     print('Đang tải pre-trained model.')
     model.load_weights(filename)
     print('Tải pre-trained model hoàn tất.')
     return model, dataset, tokenizer
   elif str(path.exists('./weights.h5')) == 'False':
     print('Khong co pretrained-model.')
+    'Tải check point để train.'
+    checkpoint_filepath = './pretrained/'
+    model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
+      filepath=checkpoint_filepath,
+      save_weights_only=True,
+      monitor='accuracy',
+      mode='max',
+      save_best_only=True,
+      save_freq = 'epoch')
 
+    if  str(path.exists('./pretrained/checkpoint')) == 'True':
+      model.load_weights(checkpoint_filepath)
+      model.fit(dataset, epochs=hparams.epochs, callbacks= [model_checkpoint_callback])
+      model.load_weights(checkpoint_filepath)
+      filename = 'weights.h5'
+      model.save_weights(filename)
+    else:
+      print('Thiếu file check point.')
+      model.fit(dataset, epochs=hparams.epochs, callbacks= [model_checkpoint_callback])
 
 model, dataset, tokenizer = main()
 
@@ -154,6 +172,7 @@ def train_model():
     model.save_weights(filename)
   else:
       print('Thiếu file check point.')
+      model.fit(dataset, epochs=hparams.epochs, callbacks= [model_checkpoint_callback])
 def Get_Hyper():
       print('Kích thước 1 câu - max_length:',hparams.max_length)
       print('Batch size - batch_size:',hparams.batch_size)
