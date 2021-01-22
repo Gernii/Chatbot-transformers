@@ -112,7 +112,7 @@ def main():
     else:
       print('Thiếu file check point.')
       model.fit(dataset, epochs=hparams.epochs, callbacks= [model_checkpoint_callback])
-
+    return model, dataset, tokenizer
 model, dataset, tokenizer = main()
 
 
