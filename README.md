@@ -13,7 +13,7 @@
 
 ## TEFPA:
 * T: input (1 câu hội thoại) output (1 câu hội thoại)
-* E: $X, Y -> \widehat{Y}$
+* E: `X, Y -> Y`
 * F: 
 * P: Sparse Categorical Cross Entropy
 * A: optimizer: adam; learning rate costum, metrics : accuracy
