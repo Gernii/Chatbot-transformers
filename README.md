@@ -30,7 +30,7 @@ cd `đường dẫn`
 ```
 - cài đặt các thư viện cần thiết:
 ```
-!pip install requirements.txt
+!pip install -r requirements.txt
 ```
 ```
 import gradio as gr
