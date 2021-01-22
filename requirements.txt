@@ -1,0 +1,3 @@
+wget
+gradio
+tensorflow-datasets==4.1.0
