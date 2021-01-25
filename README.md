@@ -23,6 +23,7 @@
 
 ## Cài đặt
 - Tải dữ liệu về:
+
 Loại 1: (Không có weight)
 ```
 !git clone https://github.com/litahung/Chatbot-transformers.git
