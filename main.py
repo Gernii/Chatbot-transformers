@@ -93,7 +93,7 @@ def main():
     return model, dataset, tokenizer
   elif str(path.exists('./weights.h5')) == 'False':
     print('Khong co pretrained-model.')
-    'Tải check point để train.'
+    print('Tải check point để train.')
     checkpoint_filepath = './pretrained/'
     model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
       filepath=checkpoint_filepath,
@@ -104,8 +104,6 @@ def main():
       save_freq = 'epoch')
 
     if  str(path.exists('./pretrained/checkpoint')) == 'True':
-      model.load_weights(checkpoint_filepath)
-      model.fit(dataset, epochs=hparams.epochs, callbacks= [model_checkpoint_callback])
       model.load_weights(checkpoint_filepath)
       filename = 'weights.h5'
       model.save_weights(filename)
