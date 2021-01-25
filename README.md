@@ -86,8 +86,7 @@ main.train_model()
 
 - Cụ thể, tại vị trí chẵn, tác giả sử dụng hàm sin, và với vị trí lẽ tác giả sử dụng hàm cos để tính giá trị tại chiều đó.
 
-$$\Large{PE_{(pos, 2i)} = sin(pos / 10000^{2i / d_{model}})} $$
-$$\Large{PE_{(pos, 2i+1)} = cos(pos / 10000^{2i / d_{model}})} $$
+![](https://i.imgur.com/PSS6OIG.jpg)
 
 ### Self Attention Layer: 
 * Cho phép mô hình mã hóa 1 từ có thể sử dụng thông tin của những từ liên quan tới nó (những từ đằng trước)
