@@ -17,14 +17,23 @@
 * T: input (1 câu hội thoại) output (1 câu hội thoại)
 * E: [Tennis Corpus](http://zissou.infosci.cornell.edu/convokit/datasets/tennis-corpus/tennis-corpus.zip)
 * F: Transformers
-* P: Sparse Categorical Cross Entropy
+* P: Sparse Categorical Cross Entropy, Metrics: Accuracy
 * A: Optimizer: Adam, Costum Learning Rate
 
 
 ## Cài đặt
 - Tải dữ liệu về:
+Loại 1: (Không có weight)
 ```
 !git clone https://github.com/litahung/Chatbot-transformers.git
+```
+Loại 2: (Có weight)
+```
+import gdown
+url = 'https://drive.google.com/uc?id=1Gk3YEln3gTRM5XF8pe585VIiq3_ai3Cn'
+output = 'transformerschatbot.zip'
+gdown.download(url, output, quiet=False)
+!unzip '/content/transformerschatbot.zip' -d '/content/transformerschatbot/'
 ```
 - Di chuyển đến vị trí chứa dữ liệu:
 ```
