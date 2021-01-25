@@ -5,6 +5,8 @@
 
 ## Packages
 * Tensorflow >= 2.
+* wget
+* gradio
 
 ## Dữ liệu
 
@@ -13,10 +15,10 @@
 
 ## TEFPA:
 * T: input (1 câu hội thoại) output (1 câu hội thoại)
-* E: `X, Y -> Y`
-* F: 
+* E: [Tennis Corpus](http://zissou.infosci.cornell.edu/convokit/datasets/tennis-corpus/tennis-corpus.zip)
+* F: Transformers
 * P: Sparse Categorical Cross Entropy
-* A: optimizer: adam; learning rate costum, metrics : accuracy
+* A: Optimizer: Adam, Costum Learning Rate
 
 
 ## Cài đặt
@@ -46,7 +48,7 @@ Kích thước 1 câu - max_length: 20
 Batch size - batch_size: 256
 Số lớp "encoder layer" và "decoder layer" - num_layers: 2
 số lượng Units - num_units: 512
-Số chiều Model - d_model: 256
+chiều sâu Model - d_model: 256
 Số lượng head trong Multi-head attention - num_heads: 8
 Dropout - dropout: 0.1
 Activation - activation: relu
@@ -67,10 +69,25 @@ main.train_model()
 ```
 
 
-## Ưu điểm:
+## Ưu điểm của mô hình:
 ### xử lý đồng thời các từ thay vì xử lý tuần tự từng từ như mô hình Seq2Seq
 
+-Một trong những ưu điểm của transformer là có khả năng xử lý song song cho các từ. Như chúng ta thấy, Encoders của mô hình transformer là một dạng Feedforward Neural Nets, bao gồm nhiều encoder layer khác, mỗi encoder layer này xử lý đồng thời các từ. Trong khi đó, với mô hình LSTM, thì các từ phải được xử lý tuần tự. Ngoài ra, mô hình Transformer còn xử lý câu đầu vào theo 2 hướng mà không cần phải stack thêm một hình LSTM nữa như trong kiến trúc Bidirectional LSTM.
+
 ![](https://i.imgur.com/W62Aqek.jpg)
+
+#### Nhược điểm của xử lí đồng thời:
+- Vì mô hình ta dự đoán từ song song, nên chỉ đưa tất cả câu nhúng vào Word Embedding để dự đoán thì mô hình sẽ không thể nhận biết được vị trí của các từ. Vì vậy Positional Encoding sẽ giúp mô hình có thể nhận biết vị trí các từ.
+
+### Sinusoidal Position Encoding
+- Vị trí của các từ được mã hóa bằng một vector có kích thước bằng word embedding và được cộng trực tiếp vào word embedding.
+
+![](https://pbcquoc.github.io/images/transformer/embedding.jpg)
+
+- Cụ thể, tại vị trí chẵn, tác giả sử dụng hàm sin, và với vị trí lẽ tác giả sử dụng hàm cos để tính giá trị tại chiều đó.
+
+$$\Large{PE_{(pos, 2i)} = sin(pos / 10000^{2i / d_{model}})} $$
+$$\Large{PE_{(pos, 2i+1)} = cos(pos / 10000^{2i / d_{model}})} $$
 
 ### Self Attention Layer: 
 * Cho phép mô hình mã hóa 1 từ có thể sử dụng thông tin của những từ liên quan tới nó (những từ đằng trước)
@@ -145,7 +162,6 @@ decoder  dự đoán từ tiếp theo bằng cách tập trung vào output của
 
 # Nguồn tài liệu:
 > [Quoc Pham](https://pbcquoc.github.io/transformer/)
-> 
 
 
 
